@@ -50,15 +50,15 @@ export async function register(req: Request, res: Response) {
 }
 
 export async function login(req: Request, res: Response) {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
-  if (!username || !password) {
+  if (!email || !password) {
     return res.status(400).json({ message: 'All fields are required' });
   }
 
   try {
     const user = await prisma.users.findUnique({
-      where: { username },
+      where: { email },
     });
 
     if (!user) {

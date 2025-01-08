@@ -441,7 +441,10 @@ export async function deleteComment(req: Request, res: Response) {
         .json({ message: 'Comment does not belong to the specified thread' });
     }
 
-    if (comment.authorId !== loggedInUserId) {
+    if (
+      comment.authorId !== loggedInUserId &&
+      thread.authorId !== loggedInUserId
+    ) {
       return res
         .status(401)
         .json({ message: 'User not authorized to delete this comment' });
@@ -553,12 +556,10 @@ export async function updateComment(req: Request, res: Response) {
       data: data,
     });
 
-    res
-      .status(200)
-      .json({
-        message: 'Comment updated successfully',
-        comment: updatedComment,
-      });
+    res.status(200).json({
+      message: 'Comment updated successfully',
+      comment: updatedComment,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Error updating comment', error });

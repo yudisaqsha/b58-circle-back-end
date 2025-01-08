@@ -4,6 +4,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/index.ts",
+    "postinstall": "prisma generate",
+    "build": "tsc",
+    "add-build": "git add dist",
     "prepare": "husky",
     "lint": "eslint --fix",
     "format": "prettier --write \"src/**/*.ts\""
